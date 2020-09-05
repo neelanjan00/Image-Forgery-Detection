@@ -1,0 +1,281 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image Forgery Detection</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+        integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/stylesheets/style.css">
+    <link rel="stylesheet" href="../static/stylesheets/fullpage.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Lato&family=Open+Sans+Condensed:wght@700&display=swap"
+        rel="stylesheet">
+    <style>
+        body {
+            width: 100vw;
+            height: 100vh;
+        }
+
+        * {
+            box-shadow: none !important;
+        }
+
+        h1 {
+            font-family: 'Open Sans Condensed', sans-serif;
+            font-weight: 700;
+        }
+
+        h4 {
+            font-family: 'Lato', sans-serif;
+        }
+
+        h1#title1 {
+            font-size: 75px;
+        }
+
+        h4#subtitle1 {
+            font-size: 30px;
+        }
+
+        h1#title2 {
+            font-size: 55px;
+            margin-bottom: 20px;
+            color: white;
+        }
+
+        h4#subtitle2 {
+            font-size: 22px;
+            text-align: justify;
+            color: white;
+        }
+
+        .image-container {
+            width: 300px;
+            min-height: 100px;
+            border: 2px solid #dddddd;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #cccccc;
+        }
+
+        .image-preview__image {
+            display: none;
+            width: 100%;
+        }
+
+        #linkedin,
+        #github,
+        #submit {
+            margin-top: 10px;
+            background-color: transparent;
+            border-radius: 15px;
+        }
+
+        #linkedin:hover,
+        #github:hover,
+        #submit:hover {
+            color: white;
+            background-color: black;
+        }
+
+        .interactiveDiv {
+            background-color: rgba(255, 255, 255, 0.452);
+            padding: 20px;
+            border-radius: 15px;
+        }
+
+        @media only screen and (max-width: 767px) {
+            .interactiveDiv {
+                background-color: rgba(255, 255, 255, 0);
+            }
+
+            #caption {
+                background-color: white;
+            }
+        }
+
+        #textbox1,
+        #textbox2,
+        #textbox3 {
+            animation: fadeInAnimation ease 3s;
+            animation-fill-mode: forwards;
+            animation-play-state: paused;
+        }
+
+        @keyframes fadeInAnimation {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="fullpage">
+        <div class="section">
+            <div class="container" id="textbox1">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <h1 id="title1">Image Forgery <br> Detection</h1>
+                        <h4 id="subtitle1">A DEEP LEARNING APPROACH</h4>
+                    </div>
+                    <div class="d-none d-lg-block col-lg-6">
+                        <img src="../static/images/s1.svg" width="450" class="img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <div class="container" id="textbox2">
+                <div class="row">
+                    <div class="d-none d-lg-block col-lg-7">
+                        <center>
+                            <img src="../static/images/s2.svg" width="600" style="padding-top: 50px" class="img-fluid">
+                        </center>
+                    </div>
+                    <div class="col-lg-5 col-12">
+                        <h1 id="title2">ABSTRACT</h1>
+                        <h4 id="subtitle2">
+                            Image manipulation and forgery has been a severe cyber threat, ever since the inception of
+                            social
+                            media. It potentially conveys a false news or claim with an underlying malicious intent such
+                            as
+                            invoking communal violence. Here a deep learning algorithm is being used to identify 385
+                            different
+                            kinds of image forgery using a novel neural network architecture called Manipulation Tracing
+                            Network
+                            (ManTraNet).<br><br>
+                            <a href="https://openaccess.thecvf.com/content_CVPR_2019/papers/Wu_ManTra-Net_Manipulation_Tracing_Network_for_Detection_and_Localization_of_Image_CVPR_2019_paper.pdf"
+                                style="text-decoration: none; color: white;">
+                                <u>Based upon the original 2019 paper by Wu et. al.</u>
+                            </a>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="section">
+            <center>
+                <div class="row">
+                    <div class="col-md-5 col-12 {{'offset-md-3 pl-md-5' if not output}}">
+                        <div class="ml-md-5 interactiveDiv">
+                            <h5 class="pb-1">Interactive Model</h5>
+                            <div class="image-preview mb-3" id="imagePreview">
+                                <img alt="Image Preview" class="image-preview__image img-fluid"
+                                    style="width: auto; max-height: 60vh;">
+                            </div>
+                            <form action="/" method="POST" enctype="multipart/form-data">
+                                <input type="hidden" name="platform" value="website">
+                                <div class="custom-file col-12">
+                                    <input type="file" class="custom-file-input" name="input_image" id="customFile">
+                                    <label class="custom-file-label" for="customFile">Upload jpg/jpeg/png Image</label>
+                                </div>
+                                <button class="btn btn-light mt-4" style="border: 1px solid black" id="submit"
+                                    type="submit">SUBMIT</button>
+                            </form>
+                        </div>
+                    </div>
+                    {% if output %}
+                    <div class="col-md-6 col-12">
+                        <div class="interactiveDiv p-4" style="width: fit-content;">
+                            <h5 class="pb-1">Predicted Forged Regions</h5>
+                            <img src="data:image/jpeg;base64,{{img}}" class="img-fluid"
+                                style="width: auto; max-height: 70vh;" />
+                        </div>
+                    </div>
+                    {% endif %}
+                </div>
+            </center>
+        </div>
+        <div class="section">
+            <div class="container" id="textbox3">
+                <div class="row">
+                    <div class="col-lg-6 col-12 mb-4 mb-md-0">
+                        <h1>ABOUT</h1>
+                        <h4 style="text-align: justify;">This project is made by Neelanjan Manna, a fellow Machine
+                            Learning and Data Science enthusiast currently enrolled in Bachelor of Technology course at
+                            KIIT University.</h4>
+                        <a href="https://linkedin.com/in/neelanjan00/" target="blank"><button class="btn" id="linkedin"
+                                style="border: 1px solid black;">My Linkedin</button></a>
+                        <a href="https://github.com/neelanjan00/" target="blank"><button class="btn ml-3" id="github"
+                                style="border: 1px solid black;">My Github</button></a>
+                        <h1 class="mt-5">REFERENCES</h1>
+                        <h4>
+                            <a href="https://ieeexplore.ieee.org/abstract/document/8953774/" style="color: black;">1.
+                                ManTra-Net: Manipulation Tracing Network for Detection and Localization of Image
+                                Forgeries With Anomalous Features</a><br><br>
+                            <a href="https://towardsdatascience.com/image-forgery-detection-2ee6f1a65442"
+                                style="color: black;">2. Image forgery detection, Using the power of CNN's to detect
+                                image manipulation</a><br>
+                        </h4>
+                    </div>
+                    <div class="d-none d-lg-block col-lg-6">
+                        <img src="../static/images/s3.svg" width="500" class="pt-5 img-fluid">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
+        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+        crossorigin="anonymous"></script>
+    <script src="../static/scripts/fullpage.min.js"></script>
+    <script>
+        var fullpage_api = new fullpage('#fullpage', {
+            autoScrolling: true,
+            scrollHorizontally: true,
+            verticallyCentered: true,
+            responsiveWidth: 767,
+            anchors: ['section1', 'section2', 'section3', 'section4'],
+
+            afterLoad: function (origin, destination, direction) {
+                if (destination.index === 0)
+                    document.getElementById('textbox1').style.animationPlayState = 'running';
+                if (destination.index === 1)
+                    document.getElementById('textbox2').style.animationPlayState = 'running';
+                if (destination.index === 3)
+                    document.getElementById('textbox3').style.animationPlayState = 'running';
+            }
+        });
+
+        $(".custom-file-input").on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
+        });
+
+        const inpFile = document.getElementById('customFile');
+        const previewContainer = document.getElementById('imagePreview');
+        const previewImage = previewContainer.querySelector('.image-preview__image');
+
+        inpFile.addEventListener('change', function () {
+            const file = this.files[0];
+
+            if (file) {
+                const reader = new FileReader();
+
+                previewImage.style.display = "block";
+
+                reader.addEventListener("load", function () {
+                    previewImage.setAttribute("src", this.result);
+                });
+
+                reader.readAsDataURL(file);
+            }
+        })
+    </script>
+    {% if output %}
+    <script>
+        fullpage_api.silentMoveTo(3);
+    </script>
+    {% endif %}
+</body>
+
+</html>
