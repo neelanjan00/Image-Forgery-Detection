@@ -1,5 +1,5 @@
 Keras==2.2.4
-tensorflow-gpu==1.15.0
+tensorflow-cpu==1.15.0
 opencv-python==4.1.0
 numpy==1.17.0
 Flask==1.1.1
