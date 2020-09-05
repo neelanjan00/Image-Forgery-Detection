@@ -62,6 +62,6 @@ def base():
 
 if __name__ == "__main__":
     app.secret_key = 'qwertyuiop1234567890'
-    port = int(os.environ.get('PORT', 8080))
-    app.run(debug=True, port=port)
+    port = int(os.environ.get('PORT', 5000))
+    app.run(debug=True, host='0.0.0.0', port=port)
     
