@@ -1,5 +1,7 @@
 import keras
 from keras import backend as K
+from telegram.chataction import ChatAction
+from telegram.files.document import Document
 import modelCore
 import tensorflow as tf
 import matplotlib.pyplot as plt
@@ -46,12 +48,6 @@ def allowed_file(filename):
     return '.' in filename and \
         filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
-def something():
-    inp_img = cv2.imdecode(np.frombuffer(file.read(), np.uint8), cv2.IMREAD_UNCHANGED)
-    decode_an_image_file(inp_img)
-    output = cv2.imread('h.png')
-    _, outputBuffer = cv2.imencode('.jpg', output)
-    OutputBase64String = base64.b64encode(outputBuffer).decode('utf-8')
 
 
 # Define a few command handlers. These usually take the two arguments update and
@@ -66,11 +62,14 @@ def help_command(update: Update, context: CallbackContext) -> None:
     update.message.reply_text('Help!')
 
 
-def echo(update: Update, context: CallbackContext) -> None:
+def predict(update: Update, context: CallbackContext) -> None:
     """Echo the user message."""
-    update.message.reply_text(update.message.text)
+    if update.message.text:
+        update.message.reply_text(update.message.text)
     message:Message = update.message
     photo:List[PhotoSize] = message.photo
+    document:Document = message.document
+    context.bot.send_chat_action(chat_id=message.chat.id,action=ChatAction.UPLOAD_PHOTO,timeout=60000)
     if photo:
         p:PhotoSize = photo[-1]
         file:File = p.get_file(timeout=10000)
@@ -81,6 +80,19 @@ def echo(update: Update, context: CallbackContext) -> None:
         output = cv2.imread('h.png')
         _, outputBuffer = cv2.imencode('.jpg', output)
         OutputBase64String = base64.b64encode(outputBuffer).decode('utf-8')
+        message.reply_photo(photo=open('h.png','rb'))
+    elif document:
+        file:File = document.get_file(timeout=10000)
+        arr:bytearray = file.download_as_bytearray()
+        nparr = np.frombuffer(arr,np.uint8)
+        inp_img = cv2.imdecode(np.frombuffer(nparr, np.uint8), cv2.IMREAD_UNCHANGED)        
+        decode_an_image_file(inp_img)
+        output = cv2.imread('h.png')
+        _, outputBuffer = cv2.imencode('.jpg', output)
+        OutputBase64String = base64.b64encode(outputBuffer).decode('utf-8')
+        message.reply_photo(photo=open('h.png','rb'))
+    else:
+        pass
         
 
 
@@ -94,7 +106,7 @@ def main():
     dispatcher.add_handler(CommandHandler("start", start))
     dispatcher.add_handler(CommandHandler("help", help_command))
 
-    dispatcher.add_handler(MessageHandler(~Filters.command, echo))
+    dispatcher.add_handler(MessageHandler(~Filters.command, predict))
 
     updater.start_polling()
 
