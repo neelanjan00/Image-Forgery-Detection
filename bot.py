@@ -54,7 +54,7 @@ def allowed_file(filename):
 # context. Error handlers also receive the raised TelegramError object in error.
 def start(update: Update, context: CallbackContext) -> None:
     """Send a message when the command /start is issued."""
-    update.message.reply_text('Hi!')
+    update.message.reply_text("Upload an image as a document for interacting with the model")
 
 
 def help_command(update: Update, context: CallbackContext) -> None:
