@@ -18,8 +18,13 @@ pip install -r requirements.txt
 
 ## Usage
 
+### Web Application
 ```sh
 python app.py
+```
+### Telegram Bot
+```sh
+python bot.py
 ```
 
 ## Author
